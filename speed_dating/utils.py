@@ -1,9 +1,7 @@
-import json
 from pathlib import Path
 
 import polars as pl
 from IPython.core.display_functions import display
-from scipy.io import arff
 
 
 def root_path() -> Path:
@@ -12,17 +10,6 @@ def root_path() -> Path:
 
 def data_path() -> Path:
     return root_path() / "data"
-
-
-def load_data():
-    data, meta = arff.loadarff(data_path() / "speeddating.arff")
-    return pl.DataFrame(data), meta
-
-
-def load_metadata():
-    with open(data_path() / "40536.json", 'r') as file:
-        data = json.load(file)
-    return data
 
 
 def polars_to_str(dataframe: pl.DataFrame, max_rows: int = -1, max_cols: int = -1) -> str:
